@@ -352,7 +352,10 @@ code{background:rgba(255,255,255,.08);padding:.1em .4em;border-radius:4px;font-s
 @keyframes pulseGlow{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}}
 .final-text{max-width:520px;color:var(--cream-dim);font-size:1.1rem;line-height:1.7;margin:0 0 20px;position:relative;z-index:1;}
 .final-signature{font-family:var(--font-script);font-style:italic;font-size:1.4rem;color:var(--blush);margin:0 0 40px;position:relative;z-index:1;}
-
+.final-love{margin:0 0 16px;font-family:var(--font-script);font-style:italic;font-size:1.3rem;color:var(--blush-soft);position:relative;z-index:1;}
+.final-actions{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 22px;position:relative;z-index:1;}
+.secondary-btn{background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(216,164,127,.4));color:var(--cream);border:1px solid rgba(216,164,127,.24);box-shadow:none;}
+.secondary-btn:hover{transform:translateY(-3px) scale(1.02);}
 /* ================= RESPONSIVE ================= */
 @media (max-width:600px){
   .page{padding:80px 18px;}
