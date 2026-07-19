@@ -403,6 +403,15 @@ function initResponseButtons(){
   const laterBtn = document.getElementById('later-btn');
   if (!loveBtn || !laterBtn) return;
 
+  function showToast(message){
+    const toast = document.getElementById('share-toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(showToast.timeout);
+    showToast.timeout = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
   function createLayer(){
     let layer = document.getElementById('reaction-layer');
     if (!layer) {
@@ -435,8 +444,38 @@ function initResponseButtons(){
     burst(type === 'heart' ? 90 : 60, type === 'heart' ? 70 : 50, rect);
   }
 
-  loveBtn.addEventListener('click', () => triggerEmoji(loveBtn, '💖', 'heart', 14));
-  laterBtn.addEventListener('click', () => triggerEmoji(laterBtn, '😢', 'sad', 12));
+  function shareResponse(message, fallbackMessage){
+    if (navigator.share) {
+      navigator.share({
+        title: 'Birthday reply',
+        text: message
+      }).then(() => showToast('Shared your reply')).catch(() => {
+        window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+        showToast(fallbackMessage);
+      });
+      return;
+    }
+
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    const mailtoUrl = `mailto:?subject=Birthday%20reply&body=${encodeURIComponent(message)}`;
+    try {
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      showToast('Opened WhatsApp-style share');
+    } catch {
+      window.location.href = mailtoUrl;
+      showToast('Opened email fallback');
+    }
+  }
+
+  loveBtn.addEventListener('click', () => {
+    triggerEmoji(loveBtn, '💖', 'heart', 14);
+    shareResponse('Love you too 💖', 'Opened WhatsApp-style share');
+  });
+
+  laterBtn.addEventListener('click', () => {
+    triggerEmoji(laterBtn, '😢', 'sad', 12);
+    shareResponse('Later then 😢', 'Opened WhatsApp-style share');
+  });
 }
 
 /* ---------------- Confetti helper ---------------- */

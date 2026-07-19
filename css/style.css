@@ -356,6 +356,8 @@ code{background:rgba(255,255,255,.08);padding:.1em .4em;border-radius:4px;font-s
 .final-actions{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 22px;position:relative;z-index:1;}
 .secondary-btn{background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(216,164,127,.4));color:var(--cream);border:1px solid rgba(216,164,127,.24);box-shadow:none;}
 .secondary-btn:hover{transform:translateY(-3px) scale(1.02);}
+.share-toast{position:fixed;right:20px;bottom:20px;z-index:220;background:rgba(27,14,31,.9);color:var(--cream);padding:12px 16px;border-radius:999px;border:1px solid rgba(216,164,127,.28);box-shadow:0 12px 24px rgba(0,0,0,.25);opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .3s ease, transform .3s ease;}
+.share-toast.show{opacity:1;transform:translateY(0);} 
 .reaction-layer{position:fixed;inset:0;pointer-events:none;z-index:160;overflow:hidden;}
 .reaction-emoji{position:absolute;font-size:2rem;animation:reactionFloat 1.5s ease-out forwards;filter:drop-shadow(0 0 10px rgba(255,255,255,.25));}
 .reaction-emoji.heart{color:#ff6f91;}
