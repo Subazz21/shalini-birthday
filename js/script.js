@@ -444,37 +444,33 @@ function initResponseButtons(){
     burst(type === 'heart' ? 90 : 60, type === 'heart' ? 70 : 50, rect);
   }
 
-  function shareResponse(message, fallbackMessage){
-    if (navigator.share) {
-      navigator.share({
-        title: 'Birthday reply',
-        text: message
-      }).then(() => showToast('Shared your reply')).catch(() => {
-        window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
-        showToast(fallbackMessage);
+  function notifyTelegram(message){
+    fetch('/api/telegram', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          showToast('Telegram notified');
+        } else {
+          showToast(data.error || 'Telegram failed');
+        }
+      })
+      .catch(() => {
+        showToast('Telegram server unavailable');
       });
-      return;
-    }
-
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    const mailtoUrl = `mailto:?subject=Birthday%20reply&body=${encodeURIComponent(message)}`;
-    try {
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-      showToast('Opened WhatsApp-style share');
-    } catch {
-      window.location.href = mailtoUrl;
-      showToast('Opened email fallback');
-    }
   }
 
   loveBtn.addEventListener('click', () => {
     triggerEmoji(loveBtn, '💖', 'heart', 14);
-    shareResponse('Love you too 💖', 'Opened WhatsApp-style share');
+    notifyTelegram('💖 Love you too!');
   });
 
   laterBtn.addEventListener('click', () => {
     triggerEmoji(laterBtn, '😢', 'sad', 12);
-    shareResponse('Later then 😢', 'Opened WhatsApp-style share');
+    notifyTelegram('😢 Later then...');
   });
 }
 

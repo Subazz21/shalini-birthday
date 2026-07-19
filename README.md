@@ -60,6 +60,17 @@ python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
 
+### Telegram notifications
+
+To get the final buttons to notify you in Telegram, start the small local server
+with your Telegram bot token and chat ID:
+
+```bash
+TELEGRAM_BOT_TOKEN=your_bot_token TELEGRAM_CHAT_ID=your_chat_id node server.js
+```
+
+Then open the site at http://localhost:3000.
+
 ## Deploying
 
 Per the blueprint, any static host works:
