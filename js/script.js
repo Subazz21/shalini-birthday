@@ -12,7 +12,6 @@ const CONFIG = {
 
 const TELEGRAM_BOT_TOKEN = '8656358643:AAFqHvBXBw_XemKpQwF1iiw2cnBoHxafiik';
 const TELEGRAM_CHAT_ID = '1488483740';
-const TELEGRAM_PROXY_URL = 'https://api.allorigins.win/raw?url=';
 
 document.addEventListener('DOMContentLoaded', () => {
   initLoadingScreen();
@@ -449,7 +448,7 @@ function initResponseButtons(){
   }
 
   function notifyTelegram(message){
-    const url = `${TELEGRAM_PROXY_URL}${encodeURIComponent(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`)}`;
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`;
 
     fetch(url, { method: 'GET' })
       .then(response => response.json())
