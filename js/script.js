@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNightSky();
   initFinalYear();
   initReplayButton();
+  initResponseButtons();
 });
 
 /* ---------------- Loading screen ---------------- */
@@ -394,6 +395,48 @@ function initReplayButton(){
     window.scrollTo({ top: 0, behavior: 'smooth' });
     burst(200, 70);
   });
+}
+
+/* ---------------- Final response buttons ---------------- */
+function initResponseButtons(){
+  const loveBtn = document.getElementById('love-btn');
+  const laterBtn = document.getElementById('later-btn');
+  if (!loveBtn || !laterBtn) return;
+
+  function createLayer(){
+    let layer = document.getElementById('reaction-layer');
+    if (!layer) {
+      layer = document.createElement('div');
+      layer.id = 'reaction-layer';
+      layer.className = 'reaction-layer';
+      document.body.appendChild(layer);
+    }
+    return layer;
+  }
+
+  function triggerEmoji(btn, emoji, type, count){
+    const layer = createLayer();
+    const rect = btn.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('span');
+      el.className = `reaction-emoji ${type}`;
+      el.textContent = emoji;
+      el.style.left = `${centerX + (Math.random() - 0.5) * 140}px`;
+      el.style.top = `${centerY - 22}px`;
+      el.style.setProperty('--drift', `${(Math.random() * 120) - 60}px`);
+      el.style.animationDuration = `${1.2 + Math.random() * 0.4}s`;
+      layer.appendChild(el);
+      setTimeout(() => el.remove(), 1700);
+    }
+
+    burst(type === 'heart' ? 90 : 60, type === 'heart' ? 70 : 50, rect);
+  }
+
+  loveBtn.addEventListener('click', () => triggerEmoji(loveBtn, '💖', 'heart', 14));
+  laterBtn.addEventListener('click', () => triggerEmoji(laterBtn, '😢', 'sad', 12));
 }
 
 /* ---------------- Confetti helper ---------------- */
