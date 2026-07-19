@@ -10,6 +10,10 @@ const CONFIG = {
   reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
 };
 
+const TELEGRAM_BOT_TOKEN = '8656358643:AAFqHvBXBw_XemKpQwF1iiw2cnBoHxafiik';
+const TELEGRAM_CHAT_ID = '1488483740';
+const TELEGRAM_PROXY_URL = 'https://api.allorigins.win/raw?url=';
+
 document.addEventListener('DOMContentLoaded', () => {
   initLoadingScreen();
   initWelcomePopup();
@@ -445,21 +449,19 @@ function initResponseButtons(){
   }
 
   function notifyTelegram(message){
-    fetch('/api/telegram', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message })
-    })
+    const url = `${TELEGRAM_PROXY_URL}${encodeURIComponent(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`)}`;
+
+    fetch(url, { method: 'GET' })
       .then(response => response.json())
       .then(data => {
         if (data.ok) {
           showToast('Telegram notified');
         } else {
-          showToast(data.error || 'Telegram failed');
+          showToast(data.description || 'Telegram failed');
         }
       })
       .catch(() => {
-        showToast('Telegram server unavailable');
+        showToast('Telegram unavailable');
       });
   }
 
