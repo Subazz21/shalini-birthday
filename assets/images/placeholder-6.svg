@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4A1B3D"/>
+      <stop offset="100%" stop-color="#1B0E1F"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#g6)"/>
+  <path d="M200 300 C120 240 60 190 60 130 C60 90 95 65 130 78 C160 90 185 115 200 140 C215 115 240 90 270 78 C305 65 340 90 340 130 C340 190 280 240 200 300 Z" fill="#D8A47F" opacity="0.35"/>
+  <text x="200" y="360" font-family="Georgia, serif" font-size="18" fill="#F2A6B3" text-anchor="middle" opacity="0.8">add your photo</text>
+</svg>
