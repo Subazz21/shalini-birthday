@@ -5,7 +5,7 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 
-const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "YOUR_NEW_BOT_TOKEN";
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "8656358643:AAFqHvBXBw_XemKpQwF1iiw2cnBoHxafiik";
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID || "1488483740";
 const rootDir = __dirname;
 
